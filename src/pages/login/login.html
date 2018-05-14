@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Bem-Vindo ao Projeto Produto! 
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+    <ion-item [ngClass]="{'error-border':!loginForm.controls.matricula.valid && loginForm.controls.matricula.touched}">
+      <ion-label floating>Username</ion-label>
+      <ion-input formControlName="matricula" type="number"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="loginForm.get('password').hasError('required') && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
+      <p color="danger">Sorry, field password is required!</p>
+    </ion-item>
+    <ion-item *ngIf="loginForm.controls.password.hasError('minlength') && (loginForm.controls.password.dirty || loginForm.controls.password.touched)">
+      <p color="danger">Sorry, minimum password length is !</p>
+    </ion-item>
+  
+    <button ion-button full color="primary" [disabled]="!loginForm.valid" style="margin-top: 20px;" type="submit">Entrar</button>
+  </form>
+
+</ion-content>
