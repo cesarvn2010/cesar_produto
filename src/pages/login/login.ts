@@ -54,7 +54,8 @@ export class LoginPage {
 
   onSubmit(values) {
     console.log(values.matricula.trim())
-    this.navCtrl.push(HomePage, { matricula: values.matricula.trim() })
+    //this.navCtrl.push("ProdutoPage", { matricula: values.matricula.trim() })
+    this.navCtrl.setRoot("ProdutoPage");
   }
 
   ionViewDidLoad() {

@@ -12,6 +12,7 @@ import { DatabaseProvider } from '../providers/database/database';
 import { ProdutoProvider } from '../providers/produto/produto';
 import { SQLite } from '@ionic-native/sqlite';
 import { UsuarioProvider } from '../providers/usuario/usuario';
+import {Camera, CameraOptions} from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UsuarioProvider } from '../providers/usuario/usuario';
     DatabaseProvider,
     ProdutoProvider,
     SQLite,
-    UsuarioProvider
+    UsuarioProvider,
+    Camera
   ]
 })
 export class AppModule {}
