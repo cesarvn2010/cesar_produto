@@ -156,6 +156,11 @@ export class ProdutoDetalhePage {
       return;
     }
     this.produtoDto.idCategoria = this.categoria.idCategoria;
+
+    if (this.produtoDto.fotoProduto.toString() == ""){
+      alert("Nenhuma foto inserida");
+      return;
+    }
     
     this.origem = "S";
     this.fechar();     
@@ -185,7 +190,8 @@ export class ProdutoDetalhePage {
          this.camera.getPicture(cameraOptions)
           .then((imageData)=>
             {
-              this.foto = "data:image/jpeg;base64," + imageData;              
+              this.foto = "data:image/jpeg;base64," + imageData;  
+             // this.produtoDto.fotoProduto = this.foto;            
             },
           (err)=> {
               console.log(err);
