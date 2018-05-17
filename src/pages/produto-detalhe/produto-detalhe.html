@@ -50,7 +50,7 @@
     </ion-item>
 <!--(keypress)="verificarNumero($event, 'I')" -->
     <ion-item>
-      <ion-label>Ativo</ion-label>
+      <ion-label>Situação Ativo:</ion-label>
       <ion-toggle  [(ngModel)]="produtoDto.ativo" ></ion-toggle>
     </ion-item>
     
@@ -62,16 +62,16 @@
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Foto:</ion-label>
-      <ion-img src="produtoDto.fotoProduto"></ion-img><!-- -->
-      <button ion-button icon-left type="button"
-      (click)="tirarFoto()">
+      <ion-img src={{produtoDto.fotoProduto}} width="80px" height="80px"></ion-img>
+      <button ion-item icon-left type="button"
+      (click)="tirarFoto()">Tirar foto do produto
       <ion-icon name="camera"></ion-icon>
       </button>
     </ion-item>
-      
-    <button ion-button small (click)="salvar()">
-        Salvar
+   
+    
+    <button ion-button (click)="salvar()">
+          Salvar
     </button>
  
 </ion-content>

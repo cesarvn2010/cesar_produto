@@ -1,0 +1,38 @@
+// produto-detalhe.ts
+
+ tirarFoto()
+  {
+        let cameraOptions : CameraOptions = {
+          quality: 50,
+          encodingType: this.camera.EncodingType.JPEG,
+          targetWidth:800,
+          targetHeight:600,
+          destinationType: this.camera.DestinationType.DATA_URL,
+          sourceType: this.camera.PictureSourceType.CAMERA,
+          correctOrientation: true,
+          saveToPhotoAlbum:true          
+         }
+         this.camera.getPicture(cameraOptions)
+          .then((imageData)=>
+            {
+              this.foto = "data:image/jpeg;base64," + imageData;  
+             // this.produtoDto.fotoProduto = this.foto;            
+            },
+          (err)=> {
+              console.log(err);
+              this.alerta(err.toString(), "Atenção");
+              }
+          ); 
+     
+    }
+
+// produto-detalhe.html
+
+ <ion-item>
+      <ion-label floating>Foto:</ion-label>
+      <!--
+      <ion-img [src]="produtoDto.fotoProduto"></ion-img>
+      <button ion-button icon-left type="button" (click)="tirarFoto()">
+      <ion-icon name="camera"></ion-icon>
+      </button> -->
+    </ion-item>

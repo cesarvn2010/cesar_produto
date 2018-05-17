@@ -190,8 +190,8 @@ export class ProdutoDetalhePage {
          this.camera.getPicture(cameraOptions)
           .then((imageData)=>
             {
-              this.foto = "data:image/jpeg;base64," + imageData;  
-             // this.produtoDto.fotoProduto = this.foto;            
+              this.foto = "data:image/jpeg;base64," + imageData;
+              this.produtoDto.fotoProduto = this.foto;             
             },
           (err)=> {
               console.log(err);
