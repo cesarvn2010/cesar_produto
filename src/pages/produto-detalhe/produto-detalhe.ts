@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,
    ViewController, AlertController } from 'ionic-angular';
 import {Camera, CameraOptions} from '@ionic-native/camera';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { ProdutoDto} from '../../Model/produtoDto';
 import { CategoriaDto} from '../../Model/categoriaDto';
@@ -19,22 +20,24 @@ import { CategoriaDto} from '../../Model/categoriaDto';
 })
 export class ProdutoDetalhePage {
 
+  retorno : any;
+  formato : any;
   produtoDto : ProdutoDto 
   listaCategorias : Array<CategoriaDto>;
   categoria : CategoriaDto;
   mensagem : String = "";
   origem : String = "";
-  foto : any = '';
 
   constructor(public navCtrl: NavController,
         public viewCtrl: ViewController, 
         public navParams: NavParams,
         private alertCtrl: AlertController,
-        private camera: Camera,) {
+        private camera: Camera,
+        private barcodeScanner: BarcodeScanner) {
           
         this.montarTela();         
            
-  }
+        }
 
   montarTela()
   {
@@ -65,6 +68,22 @@ export class ProdutoDetalhePage {
 
     this.obterCategoria(this.produtoDto.idCategoria);   
 
+  }
+  
+  ler(){
+    this.barcodeScanner.scan(
+      {
+          "prompt" : "lendo...",
+          "orientation" : "landscape"
+      })
+      .then(barcodeData => {
+        this.retorno = barcodeData.text;
+        this.produtoDto.barcode = this.retorno;
+        this.formato = barcodeData.format;
+      })
+      .catch(err => {
+        this.alerta(err, "Atenção!");
+      })
   }
 
   obterCategoria(idCategoria : Number)
@@ -161,6 +180,11 @@ export class ProdutoDetalhePage {
       alert("Nenhuma foto inserida");
       return;
     }
+
+    if (this.produtoDto.barcode == ""){
+      alert("Nenhum barcode inserido");
+      return;
+    }
     
     this.origem = "S";
     this.fechar();     
@@ -190,8 +214,8 @@ export class ProdutoDetalhePage {
          this.camera.getPicture(cameraOptions)
           .then((imageData)=>
             {
-              this.foto = "data:image/jpeg;base64," + imageData;
-              this.produtoDto.fotoProduto = this.foto;             
+               this.produtoDto.fotoProduto = "data:image/jpeg;base64," + imageData;
+                            
             },
           (err)=> {
               console.log(err);

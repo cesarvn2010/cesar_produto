@@ -68,7 +68,11 @@
       <ion-icon name="camera"></ion-icon>
       </button>
     </ion-item>
-   
+    <ion-item>
+      <button ion-button block (click)="ler()">Ler Código de Barras</button>
+      <p>Código: {{retorno}}</p>
+      <p>Formato: {{formato}}</p>
+    </ion-item>
     
     <button ion-button (click)="salvar()">
           Salvar

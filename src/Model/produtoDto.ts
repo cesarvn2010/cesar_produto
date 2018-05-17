@@ -8,6 +8,7 @@ export class ProdutoDto {
     private _Ativo: Boolean;
     private _DataValidadeProduto: String;
     private _FotoProduto: String;
+    private _Barcode: String;
 
   //  private _HoraValidadeProduto: String;
   //  
@@ -44,6 +45,10 @@ export class ProdutoDto {
     get fotoProduto () : String {
       return this._FotoProduto ;
       }
+
+    get barcode () : String {
+      return this._Barcode ;
+    }
     /*
     get horaValidadeProduto () : String {
     return this._HoraValidadeProduto ;
@@ -92,6 +97,9 @@ export class ProdutoDto {
       this._FotoProduto  = p;
     }
 
+    set barcode (p: String){
+      this._Barcode = p;
+    }
     /*
     set horaValidadeProduto (p:String)
     {

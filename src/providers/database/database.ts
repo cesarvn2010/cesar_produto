@@ -48,6 +48,7 @@ export class DatabaseProvider {
        ' ativo BOOLEAN not null,' +
        ' dataValidadeProduto date not null, ' +
        ' fotoProduto text not null, ' +
+       ' barcode text not null,' +
        ' idCategoria INTEGER NOT NULL REFERENCES categoria (IdCategoria) );']
     ])
       .then(() => console.log('Tabelas criadas'))

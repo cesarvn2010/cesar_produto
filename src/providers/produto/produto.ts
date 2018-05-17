@@ -52,9 +52,9 @@ export class ProdutoProvider {
       return this.dbProvider.getDB()
       .then((db: SQLiteObject) => { 
         let sql = 'insert into produto (nomeProduto,valorProduto,' + 
-          'idCategoria, quantidadeEstoque, ativo, fotoProduto, ' +
+          'idCategoria, quantidadeEstoque, ativo, fotoProduto, barcode ' +
           ' dataValidadeProduto) ' +
-           ' values (?, ?, ?, ?, ?, ?, ?)';
+           ' values (?, ?, ?, ?, ?, ?, ?, ?)';
         return db.executeSql(sql, 
           [produtoDto.nomeProduto, 
           produtoDto.valorProduto,
@@ -62,6 +62,7 @@ export class ProdutoProvider {
           produtoDto.quantidadeEstoque, 
           produtoDto.ativo,
           produtoDto.fotoProduto,
+          produtoDto.barcode,
           produtoDto.dataValidadeProduto.substring(0,10)])
           .then((data: any) => {
           }).catch((e) => {return("Erro (1) " + e)});
@@ -149,6 +150,7 @@ export class ProdutoProvider {
       produtoDto.quantidadeEstoque = item.quantidadeEstoque;
       produtoDto.dataValidadeProduto = item.dataValidadeProduto.toString();
       produtoDto.fotoProduto = item.fotoProduto;
+      produtoDto.barcode = item.barcode;
       produtoDto.ativo = item.ativo;
 
       return produtoDto;

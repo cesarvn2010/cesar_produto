@@ -13,6 +13,7 @@ import { ProdutoProvider } from '../providers/produto/produto';
 import { SQLite } from '@ionic-native/sqlite';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import {Camera } from '@ionic-native/camera';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {Camera } from '@ionic-native/camera';
     SQLite,
     UsuarioProvider,
     Camera,
+    BarcodeScanner
   ]
 })
 export class AppModule {}
