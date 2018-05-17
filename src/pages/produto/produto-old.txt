@@ -1,0 +1,29 @@
+pesquisar() {
+    let prompt = this.alertCtrl.create({
+      title: 'Atenção',
+      message: "Faça a leitura do código de barra",
+      inputs: [
+        {
+          name: 'Produto',
+          placeholder: 'Nome do produto'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            this.nomeProduto = "";
+            this.carregarProdutos();
+          }
+        },
+        {
+          text: 'Pesquisar',
+          handler: data => {
+            this.nomeProduto = data.Produto;
+            this.carregarProdutos();
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }

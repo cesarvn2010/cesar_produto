@@ -5,6 +5,7 @@ import { ProdutoDto} from '../../Model/produtoDto';
 import { ProdutoProvider } from '../../providers/produto/produto';
 import { CategoriaProvider } from '../../providers/categoria/categoria';
 import { CategoriaDto} from '../../Model/categoriaDto';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 /**
  * Generated class for the ProdutoPage page.
  *
@@ -20,9 +21,10 @@ import { CategoriaDto} from '../../Model/categoriaDto';
 export class ProdutoPage {
 
   //produtos : Array<ProdutoDto>;
-  nomeProduto:String="";
+  codebarProduto:String="";
   produtos : Array<ProdutoDto>;
   mensagem : String = "Produtos: ";
+  retorno: any;
 
   categorias : Array<CategoriaDto>;
 
@@ -31,7 +33,8 @@ export class ProdutoPage {
      public alertCtrl : AlertController,
      public produtoProvider : ProdutoProvider,
      public categoriaProvider : CategoriaProvider,
-     public modalCtrl : ModalController) {
+     public modalCtrl : ModalController,
+     private barcodeScanner: BarcodeScanner) {
        
     
      this.montarTela();
@@ -57,7 +60,7 @@ export class ProdutoPage {
   carregarProdutos(){     
     
     this.produtos = new Array<ProdutoDto>();
-    this.produtoProvider.getAll(this.nomeProduto)
+    this.produtoProvider.getAll(this.codebarProduto)
          .then((produtos: Array<ProdutoDto>) => {
            this.produtos = produtos; 
          })
@@ -161,31 +164,42 @@ export class ProdutoPage {
   pesquisar() {
     let prompt = this.alertCtrl.create({
       title: 'Atenção',
-      message: "Informe o nome do produto",
-      inputs: [
-        {
-          name: 'Produto',
-          placeholder: 'Nome do produto'
-        },
-      ],
+      message: "Faça a leitura do código de barra",
       buttons: [
+        {
+          text: 'Ler código de barra',
+          handler: data => {
+          this.ler();
+          this.codebarProduto = data.Produto;
+          this.carregarProdutos();
+        }
+      },
         {
           text: 'Cancelar',
           handler: data => {
-            this.nomeProduto = "";
+            this.codebarProduto = "";
             this.carregarProdutos();
           }
         },
-        {
-          text: 'Pesquisar',
-          handler: data => {
-            this.nomeProduto = data.Produto;
-            this.carregarProdutos();
-          }
-        }
+        
       ]
     });
     prompt.present();
+  }
+
+  ler(){
+    this.barcodeScanner.scan(
+      {
+          "prompt" : "Lendo código de barra...",
+          "orientation" : "landscape"
+      })
+      .then(barcodeData => {
+        this.retorno = barcodeData.text;
+        return this.retorno;
+      })
+      .catch(err => {
+        this.alerta(err);
+      })
   }
 
   alerta(mensagem)

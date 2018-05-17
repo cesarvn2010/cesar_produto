@@ -27,9 +27,8 @@
     <ion-list>
       <ion-item *ngFor="let produtoDto of produtos"> 
               
-          <h2><b>Produto: {{produtoDto.nomeProduto}}</b></h2>
+          <h2>Produto: {{produtoDto.nomeProduto}}</h2>
           <p>Valor: {{produtoDto.valorProduto}}</p>
-          <p>Barcode: {{produtoDto.barcode}}</p>
           <p>Data: {{produtoDto.dataValidadeProduto}}</p>
           <p>Foto:  <img src={{produtoDto.fotoProduto}} width="80px" height="80px" /></p>
           <button ion-button  clear small icon-only color="blue" icon-start (click)="editar(produtoDto)">
