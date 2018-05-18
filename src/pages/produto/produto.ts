@@ -63,6 +63,11 @@ export class ProdutoPage {
     this.produtoProvider.getAll(this.codebarProduto)
          .then((produtos: Array<ProdutoDto>) => {
            this.produtos = produtos; 
+           // o if abaixo talvez tenha que ser removido
+           if (produtos == null){
+             
+             this.alerta("Nenhum barcode "+this.codebarProduto+" encontrado!")
+           }
          })
          .catch(erro => 
               {                
@@ -164,16 +169,14 @@ export class ProdutoPage {
   pesquisar() {
     let prompt = this.alertCtrl.create({
       title: 'Atenção',
-      message: "Faça a leitura do código de barra",
-      buttons: [
+      message: "Informe o código de barras do produto",
+      inputs: [
         {
-          text: 'Ler código de barra',
-          handler: data => {
-          this.ler();
-          this.codebarProduto = data.Produto;
-          this.carregarProdutos();
-        }
-      },
+          name: 'Produto',
+          placeholder: 'Código de barras'
+        },
+      ],
+      buttons: [
         {
           text: 'Cancelar',
           handler: data => {
@@ -181,25 +184,30 @@ export class ProdutoPage {
             this.carregarProdutos();
           }
         },
+        {
+          text: 'Escanear',
+          handler: barcodeData => {
+            this.barcodeScanner.scan(
+              {
+                  "prompt" : "Lendo",
+                  "orientation" : "landscape"
+              })
+              .then(barcodeData => {
+                this.codebarProduto = barcodeData.text;
+                this.carregarProdutos();
+                
+              })
+              .catch(err => {
+                this.alerta(err);
+              })
+              
+          }
+          
+        }
         
       ]
     });
     prompt.present();
-  }
-
-  ler(){
-    this.barcodeScanner.scan(
-      {
-          "prompt" : "Lendo código de barra...",
-          "orientation" : "landscape"
-      })
-      .then(barcodeData => {
-        this.retorno = barcodeData.text;
-        return this.retorno;
-      })
-      .catch(err => {
-        this.alerta(err);
-      })
   }
 
   alerta(mensagem)
