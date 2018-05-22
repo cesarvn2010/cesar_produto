@@ -6,6 +6,7 @@ import { ProdutoProvider } from '../../providers/produto/produto';
 import { CategoriaProvider } from '../../providers/categoria/categoria';
 import { CategoriaDto} from '../../Model/categoriaDto';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import {File} from '@ionic-native/file';
 /**
  * Generated class for the ProdutoPage page.
  *
@@ -25,6 +26,13 @@ export class ProdutoPage {
   produtos : Array<ProdutoDto>;
   mensagem : String = "Produtos: ";
   retorno: any;
+  erroTela : any = '';
+  retorno1 : any = '';
+  retorno2 : any = '';
+  retorno3 : any = '';
+  conteudoArquivo : any = ''; 
+
+  retorno4: any = '';
 
   categorias : Array<CategoriaDto>;
 
@@ -34,7 +42,8 @@ export class ProdutoPage {
      public produtoProvider : ProdutoProvider,
      public categoriaProvider : CategoriaProvider,
      public modalCtrl : ModalController,
-     private barcodeScanner: BarcodeScanner) {
+     private barcodeScanner: BarcodeScanner,
+     private file : File,) {
        
     
      this.montarTela();
@@ -222,4 +231,88 @@ export class ProdutoPage {
 
   }
 
+  /*
+
+  criarSenhaCurta(){
+    let prompt = this.alertCtrl.create({
+      title: 'Atenção',
+      message: "Cadastre uma senha curta.",
+      inputs: [
+        {
+          name: 'SenhaCurta:',
+          placeholder: '****'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Pronto!',
+          handler: data => {
+              this.criarArquivo(data);
+              
+          }
+          
+        }
+        
+      ]
+    });
+    prompt.present();
+  }
+
+
+
+  criarArquivo(senha_curta){
+    
+    
+    let texto : string = "";
+
+    texto = senha_curta;
+   
+   let path = this.file.dataDirectory;
+   let arquivo = 'teste.txt';
+
+   this.file.createFile(path, arquivo, true)
+      .then( (ok) => 
+            {              
+             this.retorno1 = JSON.stringify(ok);
+             },
+        (err)=> {
+                 this.alerta(err.code.toString() + " " + 
+                             err.message.toString());
+                 this.erroTela = "Erro no processamento: " + JSON.stringify(err);
+                })
+      .catch((err) => {
+        console.log(err);
+        this.alerta("Erro Write" + err.toString());
+      });
+ 
+
+    texto = texto + ". Novas informações no texto";
+
+    this.file.writeFile(path, arquivo, texto, {replace: true})
+      .then( (ok) => {
+              this.retorno2 = JSON.stringify(ok);
+              },
+      (err)=> {
+              this.alerta(err.code.toString() + " " + 
+                          err.message.toString());
+              this.erroTela = JSON.stringify(err);
+              })
+      .catch((err) => {
+        this.alerta("Erro Write" + err);
+      });
+  
+      this.file.readAsText(path, arquivo)     
+      .then( (ok)=> {
+           this.retorno3 = JSON.stringify(ok);
+           this.conteudoArquivo = this.retorno3;           
+       }
+      ,
+      (err)=> {
+               this.alerta(err.code.toString() + " " + 
+                           err.message.toString());
+               this.erroTela = JSON.stringify(err);
+              })
+      .catch ((err) => this.alerta("erro leitura" + err));
+  }
+*/
 }
