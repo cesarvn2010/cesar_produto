@@ -169,7 +169,7 @@ export class ProdutoPage {
   pesquisar() {
     let prompt = this.alertCtrl.create({
       title: 'Atenção',
-      message: "Informe o código de barras do produto",
+      message: "Clique em Escanear para efetuar a pesquisa.",
       inputs: [
         {
           name: 'Produto',
