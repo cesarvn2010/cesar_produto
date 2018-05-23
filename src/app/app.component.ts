@@ -41,8 +41,8 @@ export class MyApp {
     });
 
     this.pages = [
-      {title: 'Home', component: HomePage},
-      {title: 'Login', component: 'LoginPage'},
+    //  {title: 'Home', component: HomePage},
+    //  {title: 'Login', component: 'LoginPage'},
       {title: 'Categoria', component: 'CategoriaPage'},
       {title: 'Produto', component: 'ProdutoPage'},
       {title: 'Fechar', component: 'Fechar'}
