@@ -29,8 +29,8 @@ import { File } from '@ionic-native/file';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
